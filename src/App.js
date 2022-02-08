@@ -141,10 +141,9 @@ function Points() {
         map={imgTex}
         color={0xff8896}
         size={0.5}
-        sizeAttenuation
-        transparent={false}
+        transparent={true}
         alphaTest={0.0}
-        opacity={0.0}
+        opacity={1.0}
       />
     </points>
   );
