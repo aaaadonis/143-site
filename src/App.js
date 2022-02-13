@@ -35,6 +35,20 @@ function CameraControls() {
   );
 }
 
+
+var context = new AudioContext(); // create context
+var mixAudio = new Audio(Mix)
+var src = context.createMediaElementSource(mixAudio); //create src inside ctx
+var analyser = context.createAnalyser(); //create analyser in ctx
+src.connect(analyser); //connect analyser node to the src
+analyser.connect(context.destination); // connect the destination
+// node to the analyser
+
+analyser.fftSize = 512;
+var bufferLength = analyser.frequencyBinCount;
+var dataArray = new Uint8Array(bufferLength);
+
+
 function HeartCenter() {
   const heartShape = new THREE.Shape();
   const heartRef = useRef();
@@ -96,7 +110,7 @@ function Points() {
     for (let xi = 0; xi < count; xi++) {
       for (let zi = 0; zi < count; zi++) {
         let x = sep * (xi - count / 2);
-        let z = sep * (zi - count / 2);
+        let z = sep * (zi - count / 2) ;
         let y = graph(x, z);
         positions.push(x, y, z);
       }
@@ -114,7 +128,7 @@ function Points() {
     for (let xi = 0; xi < count; xi++) {
       for (let zi = 0; zi < count; zi++) {
         let x = sep * (xi - count / 2);
-        let z = sep * (zi - count / 2);
+        let z = sep * (zi - count / 2) ;
 
         positions[i + 1] = graph(x, z);
         i += 3;
@@ -147,6 +161,12 @@ function Points() {
       />
     </points>
   );
+
+  function render() {
+    // this function runs at every update
+    analyser.getByteFrequencyData(dataArray);
+  }
+
 }
 
 function AnimationCanvas() {
