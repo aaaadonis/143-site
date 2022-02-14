@@ -11,8 +11,7 @@ import {
 import Heart from "./imgs/heart.png";
 import { Suspense, useCallback, useMemo, useRef, useState, memo } from "react";
 import Mix from "./vday.mp3";
-import React from 'react';
-
+import React from "react";
 
 extend({ OrbitControls });
 
@@ -35,9 +34,8 @@ function CameraControls() {
   );
 }
 
-
 var context = new AudioContext(); // create context
-var mixAudio = new Audio(Mix)
+var mixAudio = new Audio(Mix);
 var src = context.createMediaElementSource(mixAudio); //create src inside ctx
 var analyser = context.createAnalyser(); //create analyser in ctx
 src.connect(analyser); //connect analyser node to the src
@@ -47,7 +45,6 @@ analyser.connect(context.destination); // connect the destination
 analyser.fftSize = 512;
 var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Uint8Array(bufferLength);
-
 
 function HeartCenter() {
   const heartShape = new THREE.Shape();
@@ -110,7 +107,7 @@ function Points() {
     for (let xi = 0; xi < count; xi++) {
       for (let zi = 0; zi < count; zi++) {
         let x = sep * (xi - count / 2);
-        let z = sep * (zi - count / 2) ;
+        let z = sep * (zi - count / 2);
         let y = graph(x, z);
         positions.push(x, y, z);
       }
@@ -128,7 +125,12 @@ function Points() {
     for (let xi = 0; xi < count; xi++) {
       for (let zi = 0; zi < count; zi++) {
         let x = sep * (xi - count / 2);
-        let z = sep * (zi - count / 2) ;
+        let z = sep * (zi - count / 2);
+
+        // const distance =
+        //   Math.sqrt((x - originX) ** 2, (z - originZ) ** 2) / (width / 2); // Where originX,originZ represents the center of your plane and width represents the width of your plane
+        // positions[i + 1] =
+        //   graph(x, z) * dataArray[Math.floor(distance * dataArray.length)];
 
         positions[i + 1] = graph(x, z);
         i += 3;
@@ -166,7 +168,6 @@ function Points() {
     // this function runs at every update
     analyser.getByteFrequencyData(dataArray);
   }
-
 }
 
 function AnimationCanvas() {
@@ -186,7 +187,6 @@ function AnimationCanvas() {
 
 const MemoCanvas = React.memo(AnimationCanvas);
 
-
 function App() {
   const [toggle, setToggle] = useState(true);
   const toggler = () => setToggle(!toggle);
@@ -194,7 +194,7 @@ function App() {
   const mixRef = useRef();
   const mixPlay = () => {
     mixRef.current.play();
-  }
+  };
 
   return (
     <div className="anim">
