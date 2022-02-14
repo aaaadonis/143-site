@@ -201,9 +201,10 @@ function App() {
       <Suspense fallback={<div>Loading...</div>}>
         <MemoCanvas />
       </Suspense>
-      <audio id="myAudio" src={Mix} autoPlay={!toggle} loop ref={mixRef}/>
+      <audio id="myAudio" src={Mix} autoPlay={!toggle} loop ref={mixRef} />
       {toggle ? (
         <div id="overlay">
+          <span className="words">Slide screen/mouse to maneuver</span>
           <button
             id="startButton"
             onClick={function () {
@@ -213,6 +214,7 @@ function App() {
           >
             Play
           </button>
+          <span className="words">Volume on</span>
         </div>
       ) : (
         ""
