@@ -86,10 +86,7 @@ function HeartCenter() {
 }
 
 function Points() {
-    function render() {
-      // this function runs at every update
-      analyser.getByteFrequencyData(dataArray);
-    }
+
   const imgTex = useLoader(THREE.TextureLoader, Heart);
   const bufferRef = useRef();
 
@@ -122,6 +119,9 @@ function Points() {
 
   useFrame(() => {
     t += 15;
+          // analyser.getByteFrequencyData(dataArray);
+        
+
 
     const positions = bufferRef.current.array;
 
