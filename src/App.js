@@ -86,6 +86,10 @@ function HeartCenter() {
 }
 
 function Points() {
+    function render() {
+      // this function runs at every update
+      analyser.getByteFrequencyData(dataArray);
+    }
   const imgTex = useLoader(THREE.TextureLoader, Heart);
   const bufferRef = useRef();
 
@@ -127,13 +131,13 @@ function Points() {
         let x = sep * (xi - count / 2);
         let z = sep * (zi - count / 2);
 
-        // const distance =
-        //   Math.sqrt((x - originX) ** 2, (z - originZ) ** 2) / (width / 2); // Where originX,originZ represents the center of your plane and width represents the width of your plane
-        // positions[i + 1] =
-        //   graph(x, z) * dataArray[Math.floor(distance * dataArray.length)];
+        const distance =
+          Math.sqrt((x - originX) ** 2, (z - originZ) ** 2) / (width / 2); // Where originX,originZ represents the center of your plane and width represents the width of your plane
+        positions[i + 1] =
+          graph(x, z) * dataArray[Math.floor(distance * dataArray.length)];
 
-        positions[i + 1] = graph(x, z);
-        i += 3;
+        // positions[i + 1] = graph(x, z);
+        // i += 3;
       }
     }
 
@@ -164,10 +168,7 @@ function Points() {
     </points>
   );
 
-  function render() {
-    // this function runs at every update
-    analyser.getByteFrequencyData(dataArray);
-  }
+
 }
 
 function AnimationCanvas() {
